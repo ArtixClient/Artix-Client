@@ -14,20 +14,6 @@ A very light Minecraft launcher for low-end PCs. One small native program (no El
 - **Close-on-launch** to free RAM while you play.
 - **Official sign-in only** (see below). Nothing is ever sent to the launcher's author; there is no server.
 
-## Microsoft sign-in (one-time setup for YOU, the developer)
-Minecraft only accepts logins from apps registered with Microsoft. This is free:
-1. Go to https://portal.azure.com -> **App registrations** -> **New registration**. Name: Artix Launcher. Supported account types: **Personal Microsoft accounts only**. Redirect URI: leave empty.
-2. Open the app -> **Authentication** -> **Advanced settings** -> **Allow public client flows = Yes** -> Save.
-3. Copy the **Application (client) ID**.
-4. Request Minecraft API access for that ID using Mojang's form (https://aka.ms/AppRegInfo). Until it is approved, Minecraft login returns 403 ("Invalid app registration").
-5. Build with your ID: `ARTIX_CLIENT_ID=<id> cargo build --release` (Windows PowerShell: `$env:ARTIX_CLIENT_ID="<id>"; cargo build --release`). For GitHub Actions, add it as a repository secret named `ARTIX_CLIENT_ID`.
-
-Players then sign in with the normal Microsoft device-code page (microsoft.com/link). The launcher checks ownership through Minecraft Services' official profile endpoint.
-
-## Build
-Install Rust (https://rustup.rs), then `cargo build --release`. The exe is in `target/release/`.
-No Rust? Push this folder to GitHub: the included workflow builds Windows/Linux/macOS binaries (Actions tab -> artifacts).
-
 ## Notes
 - "Offline mode" only appears for accounts that were verified as owning the game.
 - Account tokens are stored in `accounts.json` in the launcher data folder (same approach as the official launcher).
